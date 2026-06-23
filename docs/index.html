@@ -1,15 +1,31 @@
 <!DOCTYPE html>
 <html lang="ru" dir="ltr">
 <head>
+
+  <!-- ========================================
+       META
+  ======================================== -->
+
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0" />
 
   <title>Tsafon — недвижимость Севера Израиля</title>
 
-<link rel="stylesheet"
-      href="styles/console.css">
-  
+  <!-- ========================================
+       SERVICE CONSOLE CSS
+  ======================================== -->
+
+  <link rel="stylesheet"
+        href="styles/console.css">
+
   <style>
+
+    /* ========================================
+       BASE
+    ======================================== */
+
     * {
       box-sizing: border-box;
     }
@@ -20,6 +36,10 @@
       background: #f3f5f7;
       color: #111827;
     }
+
+    /* ========================================
+       HEADER
+    ======================================== */
 
     header {
       background: #0f172a;
@@ -42,6 +62,10 @@
       color: #cbd5e1;
       font-size: 14px;
     }
+
+    /* ========================================
+       LAYOUT
+    ======================================== */
 
     .container {
       max-width: 1180px;
@@ -67,6 +91,10 @@
       color: #4b5563;
       font-size: 17px;
     }
+
+    /* ========================================
+       SEARCH
+    ======================================== */
 
     .search-box {
       background: white;
@@ -102,6 +130,13 @@
       background: #1d4ed8;
     }
 
+    /* ========================================
+       LANGUAGE SWITCH
+       ВАЖНО:
+       При выборе иврита дизайн НЕ зеркалится.
+       Меняются только надписи.
+    ======================================== */
+
     .lang-switch {
       position: fixed;
       right: 16px;
@@ -109,11 +144,6 @@
       display: flex;
       gap: 8px;
       z-index: 999;
-    }
-
-    html[dir="rtl"] .lang-switch {
-      right: auto;
-      left: 16px;
     }
 
     .lang-switch button {
@@ -124,6 +154,10 @@
       color: white;
       border: none;
     }
+
+    /* ========================================
+       STATS
+    ======================================== */
 
     .stats {
       display: grid;
@@ -149,6 +183,10 @@
       color: #6b7280;
       font-size: 14px;
     }
+
+    /* ========================================
+       FILTERS + CARDS
+    ======================================== */
 
     .layout {
       display: grid;
@@ -196,18 +234,6 @@
       display: grid;
       grid-template-columns: 230px 1fr;
       box-shadow: 0 8px 24px rgba(0,0,0,0.06);
-    }
-
-    html[dir="rtl"] .card {
-      grid-template-columns: 1fr 230px;
-    }
-
-    html[dir="rtl"] .photo {
-      order: 2;
-    }
-
-    html[dir="rtl"] .info {
-      order: 1;
     }
 
     .photo {
@@ -282,15 +308,14 @@
       margin-bottom: 12px;
     }
 
-    html[dir="rtl"] .note {
-      border-left: none;
-      border-right: 4px solid #2563eb;
-    }
-
     .meta {
       font-size: 13px;
       color: #6b7280;
     }
+
+    /* ========================================
+       FOOTER
+    ======================================== */
 
     footer {
       text-align: center;
@@ -298,28 +323,31 @@
       padding: 30px 16px 80px;
     }
 
+    /* ========================================
+       RESPONSIVE
+    ======================================== */
+
     @media (max-width: 900px) {
       .search-box,
       .stats,
       .layout,
-      .card,
-      html[dir="rtl"] .card {
+      .card {
         grid-template-columns: 1fr;
       }
 
       .hero h1 {
         font-size: 28px;
       }
-
-      html[dir="rtl"] .photo,
-      html[dir="rtl"] .info {
-        order: initial;
-      }
     }
+
   </style>
 </head>
 
 <body>
+
+<!-- ========================================
+     LANGUAGE SWITCH
+======================================== -->
 
 <div class="lang-switch">
   <button onclick="setLang('ru')">RU</button>
@@ -327,27 +355,52 @@
   <button onclick="setLang('en')">EN</button>
 </div>
 
+<!-- ========================================
+     HEADER
+======================================== -->
+
 <header>
   <div>
     <div class="logo">Tsafon</div>
-    <div class="tagline" data-i18n="tagline">Проверенная недвижимость Севера Израиля</div>
+
+    <div class="tagline"
+         data-i18n="tagline">
+      Проверенная недвижимость Севера Израиля
+    </div>
   </div>
 
-  <button onclick="alert(t('addAlert'))" data-i18n="addObject">
+  <button onclick="alert(t('addAlert'))"
+          data-i18n="addObject">
     Добавить объект
   </button>
 </header>
 
+<!-- ========================================
+     MAIN
+======================================== -->
+
 <main class="container">
 
+  <!-- ========================================
+       HERO
+  ======================================== -->
+
   <section class="hero">
-    <h1 data-i18n="heroTitle">Квартиры и дома на Севере Израиля</h1>
+    <h1 data-i18n="heroTitle">
+      Квартиры и дома на Севере Израиля
+    </h1>
+
     <p data-i18n="heroText">
       Каталог объектов с ручной проверкой, историей цены и отметкой актуальности.
     </p>
   </section>
 
+  <!-- ========================================
+       SEARCH PANEL
+  ======================================== -->
+
   <section class="search-box">
+
     <select id="cityFilter">
       <option value="" data-i18n="city">Город</option>
       <option value="karmiel" data-i18n="cityKarmiel">Кармиэль</option>
@@ -366,14 +419,34 @@
       <option value="land" data-i18n="typeLand">Участок</option>
     </select>
 
-    <input id="minPrice" type="number" placeholder="Цена от" data-placeholder="priceFrom" />
-    <input id="maxPrice" type="number" placeholder="Цена до" data-placeholder="priceTo" />
-    <input id="roomsFilter" type="number" placeholder="Комнат" data-placeholder="rooms" />
+    <input id="minPrice"
+           type="number"
+           placeholder="Цена от"
+           data-placeholder="priceFrom" />
 
-    <button onclick="applyFilters()" data-i18n="searchButton">Найти</button>
+    <input id="maxPrice"
+           type="number"
+           placeholder="Цена до"
+           data-placeholder="priceTo" />
+
+    <input id="roomsFilter"
+           type="number"
+           placeholder="Комнат"
+           data-placeholder="rooms" />
+
+    <button onclick="applyFilters()"
+            data-i18n="searchButton">
+      Найти
+    </button>
+
   </section>
 
+  <!-- ========================================
+       STATS
+  ======================================== -->
+
   <section class="stats">
+
     <div class="stat">
       <strong id="totalCount">3</strong>
       <span data-i18n="statTotal">объекта в базе</span>
@@ -393,15 +466,25 @@
       <strong data-i18n="statNorthTitle">Север</strong>
       <span data-i18n="statNorth">фокус проекта</span>
     </div>
+
   </section>
 
+  <!-- ========================================
+       CONTENT LAYOUT
+  ======================================== -->
+
   <section class="layout">
+
+    <!-- ========================================
+         FILTER SIDEBAR
+    ======================================== -->
 
     <aside>
       <h3 data-i18n="filters">Фильтры</h3>
 
       <div class="filter-group">
         <label data-i18n="status">Статус</label>
+
         <select id="statusFilter">
           <option value="" data-i18n="all">Все</option>
           <option value="verified" data-i18n="verified">Проверено</option>
@@ -412,6 +495,7 @@
 
       <div class="filter-group">
         <label data-i18n="seller">Продавец</label>
+
         <select>
           <option data-i18n="all">Все</option>
           <option data-i18n="owner">Хозяин</option>
@@ -422,6 +506,7 @@
 
       <div class="filter-group">
         <label data-i18n="features">Особенности</label>
+
         <select>
           <option data-i18n="any">Любые</option>
           <option data-i18n="mamad">Мамад</option>
@@ -432,18 +517,39 @@
       </div>
     </aside>
 
+    <!-- ========================================
+         PROPERTY CARDS
+    ======================================== -->
+
     <section class="cards" id="cards">
 
-      <article class="card" data-city="karmiel" data-price="1390000" data-rooms="4" data-status="verified">
+      <!-- ========================================
+           CARD 1
+      ======================================== -->
+
+      <article class="card"
+               data-city="karmiel"
+               data-price="1390000"
+               data-rooms="4"
+               data-status="verified">
+
         <div class="photo">🏠</div>
 
         <div class="info">
+
           <div class="top-line">
             <div class="price">₪ 1,390,000</div>
-            <div class="badge verified" data-i18n="verified">Проверено</div>
+
+            <div class="badge verified"
+                 data-i18n="verified">
+              Проверено
+            </div>
           </div>
 
-          <div class="address" data-i18n="card1Address">Кармиэль, район Рамат Рабин</div>
+          <div class="address"
+               data-i18n="card1Address">
+            Кармиэль, район Рамат Рабин
+          </div>
 
           <div class="details">
             <span data-i18n="card1Rooms">4 комнаты</span>
@@ -453,26 +559,46 @@
             <span data-i18n="parking">Парковка</span>
           </div>
 
-          <div class="note" data-i18n="card1Note">
+          <div class="note"
+               data-i18n="card1Note">
             Цена подтверждена. Объект в продаже. Было ₪ 1,450,000.
           </div>
 
-          <div class="meta" data-i18n="card1Meta">
+          <div class="meta"
+               data-i18n="card1Meta">
             Проверено: 22.06.2026 · Источник: Yad2 · Продавец: маклер
           </div>
+
         </div>
       </article>
 
-      <article class="card" data-city="nahariya" data-price="1120000" data-rooms="3" data-status="new">
+      <!-- ========================================
+           CARD 2
+      ======================================== -->
+
+      <article class="card"
+               data-city="nahariya"
+               data-price="1120000"
+               data-rooms="3"
+               data-status="new">
+
         <div class="photo">🏢</div>
 
         <div class="info">
+
           <div class="top-line">
             <div class="price">₪ 1,120,000</div>
-            <div class="badge new" data-i18n="new">Новое</div>
+
+            <div class="badge new"
+                 data-i18n="new">
+              Новое
+            </div>
           </div>
 
-          <div class="address" data-i18n="card2Address">Нагария, центр</div>
+          <div class="address"
+               data-i18n="card2Address">
+            Нагария, центр
+          </div>
 
           <div class="details">
             <span data-i18n="card2Rooms">3 комнаты</span>
@@ -481,26 +607,46 @@
             <span data-i18n="elevator">Лифт</span>
           </div>
 
-          <div class="note" data-i18n="card2Note">
+          <div class="note"
+               data-i18n="card2Note">
             Добавлено в базу. Требуется звонок для проверки актуальности.
           </div>
 
-          <div class="meta" data-i18n="card2Meta">
+          <div class="meta"
+               data-i18n="card2Meta">
             Добавлено: 22.06.2026 · Источник: Facebook · Продавец: неизвестно
           </div>
+
         </div>
       </article>
 
-      <article class="card" data-city="akko" data-price="980000" data-rooms="3" data-status="need-check">
+      <!-- ========================================
+           CARD 3
+      ======================================== -->
+
+      <article class="card"
+               data-city="akko"
+               data-price="980000"
+               data-rooms="3"
+               data-status="need-check">
+
         <div class="photo">🏘️</div>
 
         <div class="info">
+
           <div class="top-line">
             <div class="price">₪ 980,000</div>
-            <div class="badge need-check" data-i18n="needCheck">Нужно проверить</div>
+
+            <div class="badge need-check"
+                 data-i18n="needCheck">
+              Нужно проверить
+            </div>
           </div>
 
-          <div class="address" data-i18n="card3Address">Акко, север города</div>
+          <div class="address"
+               data-i18n="card3Address">
+            Акко, север города
+          </div>
 
           <div class="details">
             <span data-i18n="card3Rooms">3 комнаты</span>
@@ -509,27 +655,41 @@
             <span data-i18n="noElevator">без лифта</span>
           </div>
 
-          <div class="note" data-i18n="card3Note">
+          <div class="note"
+               data-i18n="card3Note">
             Телефон не ответил. Повторная проверка нужна через 2 дня.
           </div>
 
-          <div class="meta" data-i18n="card3Meta">
+          <div class="meta"
+               data-i18n="card3Meta">
             Последняя проверка: 20.06.2026 · Источник: Yad2 · Продавец: хозяин
           </div>
+
         </div>
       </article>
 
     </section>
-
   </section>
-
 </main>
+
+<!-- ========================================
+     FOOTER
+======================================== -->
 
 <footer data-i18n="footer">
   Tsafon · недвижимость Севера Израиля · MVP версия
 </footer>
 
+<!-- ========================================
+     SCRIPT
+     Переводы RU / HE / EN
+     ВАЖНО:
+     document.dir НЕ меняется.
+     Иврит меняет только надписи.
+======================================== -->
+
 <script>
+
   const translations = {
     ru: {
       tagline: "Проверенная недвижимость Севера Израиля",
@@ -772,16 +932,21 @@
     const dict = translations[lang];
 
     document.documentElement.lang = lang;
-    document.documentElement.dir = lang === "he" ? "rtl" : "ltr";
 
     document.querySelectorAll("[data-i18n]").forEach(el => {
       const key = el.dataset.i18n;
-      if (dict[key]) el.textContent = dict[key];
+
+      if (dict[key]) {
+        el.textContent = dict[key];
+      }
     });
 
     document.querySelectorAll("[data-placeholder]").forEach(el => {
       const key = el.dataset.placeholder;
-      if (dict[key]) el.placeholder = dict[key];
+
+      if (dict[key]) {
+        el.placeholder = dict[key];
+      }
     });
 
     localStorage.setItem("tsafon_lang", lang);
@@ -814,19 +979,26 @@
 
       card.style.display = visible ? "grid" : "none";
 
-      if (visible) visibleCount++;
+      if (visible) {
+        visibleCount++;
+      }
     });
 
     document.getElementById("totalCount").textContent = visibleCount;
   }
 
-  document.getElementById("statusFilter").addEventListener("change", applyFilters);
+  document
+    .getElementById("statusFilter")
+    .addEventListener("change", applyFilters);
 
-  const savedLang = localStorage.getItem("tsafon_lang") || "ru";
+  const savedLang =
+    localStorage.getItem("tsafon_lang")
+    || "ru";
+
   setLang(savedLang);
+
 </script>
 
-  
 <!-- ========================================
      SERVICE CONSOLE
      Верхняя строка редактируется вручную
@@ -838,7 +1010,7 @@
 <div id="service-console">
 
   <div class="row" id="build-top">
-3 language| v1.1.0
+иврит не зеркалит| v1.1.1
   </div>
 
   <div class="row" id="build-down">
@@ -883,5 +1055,6 @@
       + time;
 })();
 </script>
+
 </body>
 </html>
